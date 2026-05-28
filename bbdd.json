@@ -1572,6 +1572,12 @@
       "equipo": "Real Madrid",
       "goles": 0,
       "id": "omZ9GyhhUBY"
+    },
+    {
+      "nombre": "pepino",
+      "equipo": "SD Eibar",
+      "goles": 0,
+      "id": "vLS9Svq-TtU"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

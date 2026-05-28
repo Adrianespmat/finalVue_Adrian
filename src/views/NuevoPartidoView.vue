@@ -2,15 +2,15 @@
   <div class="box-formulario">
     <h2>Registrar Nuevo Partido</h2>
 
-    <form @submit.prevent="guardarPartidoAPI" class="form-partido">
+    <form @submit.prevent="guardarPartido" class="form-partido">
       <div class="grupo">
         <label>Número de Jornada:</label>
-        <input type="number" v-model.number="partido.jornada" min="1" required />
+        <input type="number" v-model.number="partido.round" min="1" required />
       </div>
 
       <div class="grupo">
         <label>Equipo Local:</label>
-        <select v-model="partido.local" required>
+        <select v-model="partido.team1" required>
           <option value="">-- Selecciona Equipo Local --</option>
           <option v-for="eq in equipos" :key="eq.id" :value="eq.name">
             {{ eq.name }}
@@ -20,7 +20,7 @@
 
       <div class="grupo">
         <label>Equipo Visitante:</label>
-        <select v-model="partido.visitante" required>
+        <select v-model="partido.team2" required>
           <option value="">-- Selecciona Equipo Visitante --</option>
           <option v-for="eq in equipos" :key="eq.id" :value="eq.name">
             {{ eq.name }}
@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import api from '../services/api';
 
 export default {
   name: 'NuevoPartidoView',
@@ -56,9 +56,9 @@ export default {
     return {
       equipos: [],
       partido: {
-        jornada: 1,
-        local: '',
-        visitante: '',
+        round: 1,
+        team1: '',
+        team2: '',
         golesLocal: null,
         golesVisitante: null
       },
@@ -66,51 +66,70 @@ export default {
       exito: ''
     };
   },
-  mounted() {
+  async mounted() {
     this.cargarClubes();
   },
   methods: {
-    cargarClubes() {
-    //Conexión
-      axios.get('http://localhost:3000/clubs')
-        .then(response => {
-          this.equipos = response.data;
-        })
-        .catch(err => console.error("Error al obtener los clubes:", err));
+    async cargarClubes() {
+      try {
+        const response = await api.getClubs();
+        this.equipos = response.data;
+      } catch (err) {
+        console.error("Error al obtener los clubes:", err);
+        this.error = "Error al cargar los equipos";
+      }
     },
-    guardarPartidoAPI() {
+
+    async guardarPartido() {
       this.error = '';
       this.exito = '';
 
-      
-      if (this.partido.local === this.partido.visitante) {
-        this.error = "El equipo local y el visitante no pueden ser el mismo.";
+      // Validaciones
+      if (this.partido.team1 === this.partido.team2) {
+        this.error = "El equipo local y visitante no pueden ser el mismo.";
         return;
       }
 
-      //Conexión para guardar partidos
-      axios.post('http://localhost:3000/matches', this.partido)
-        .then(() => {
-          this.exito = `¡Partido de la Jornada ${this.partido.jornada} registrado con éxito!`;
-          // Reinicio del formulario
-          this.partido = {
-            jornada: this.partido.jornada,
-            local: '',
-            visitante: '',
-            golesLocal: null,
-            golesVisitante: null
-          };
-        })
-        .catch(err => {
-          console.error("Error al guardar el partido:", err);
-          this.error = "No se pudo conectar con el servidor para guardar el partido.";
-        });
+      // Preparar objeto 
+      const nuevoPartido = {
+        round: `Jornada ${this.partido.round}`,
+        date: new Date().toISOString().split('T')[0], // fecha actual
+        team1: this.partido.team1,
+        team2: this.partido.team2
+      };
+
+      // Si se han introducido goles
+      if (this.partido.golesLocal !== null && this.partido.golesVisitante !== null) {
+        nuevoPartido.score = [
+          this.partido.golesLocal,
+          this.partido.golesVisitante
+        ];
+      }
+
+      try {
+        await api.createMatch(nuevoPartido);
+        
+        this.exito = `¡Partido de la Jornada ${this.partido.round} registrado correctamente!`;
+        
+        // Resetear formulario
+        this.partido = {
+          round: this.partido.round,
+          team1: '',
+          team2: '',
+          golesLocal: null,
+          golesVisitante: null
+        };
+      } catch (err) {
+        console.error(err);
+        this.error = "Error al guardar el partido en la base de datos.";
+      }
     }
   }
 };
 </script>
 
 <style scoped>
+
 .box-formulario { max-width: 480px; background: white; padding: 25px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
 .form-partido { display: flex; flex-direction: column; gap: 15px; }
 .grupo { display: flex; flex-direction: column; gap: 5px; }
