@@ -1,6 +1,6 @@
 <template>
   <div class="box-formulario">
-    <h2>⚽ Registrar Nuevo Partido</h2>
+    <h2>Registrar Nuevo Partido</h2>
 
     <form @submit.prevent="guardarPartidoAPI" class="form-partido">
       <div class="grupo">
@@ -71,7 +71,7 @@ export default {
   },
   methods: {
     cargarClubes() {
-      // 🛠️ Conexión con tu Endpoint correcto en inglés
+    //Conexión
       axios.get('http://localhost:3000/clubs')
         .then(response => {
           this.equipos = response.data;
@@ -82,17 +82,17 @@ export default {
       this.error = '';
       this.exito = '';
 
-      // Validación: un equipo no puede jugar contra sí mismo
+      
       if (this.partido.local === this.partido.visitante) {
         this.error = "El equipo local y el visitante no pueden ser el mismo.";
         return;
       }
 
-      // 🛠️ Conexión con tu Endpoint correcto para guardar partidos
+      //Conexión para guardar partidos
       axios.post('http://localhost:3000/matches', this.partido)
         .then(() => {
           this.exito = `¡Partido de la Jornada ${this.partido.jornada} registrado con éxito!`;
-          // Reset del formulario
+          // Reinicio del formulario
           this.partido = {
             jornada: this.partido.jornada,
             local: '',

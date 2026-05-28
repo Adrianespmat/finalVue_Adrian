@@ -50,7 +50,7 @@ export default {
   mounted() {
     this.cargarClubes();
     
-    // Captura el parámetro "?equipo=Nombre" de la ruta si existe (Requisito punto 8)
+    // Coger el parámetro "?equipo=Nombre"
     if (this.$route.query.equipo) {
       this.jugador.equipo = this.$route.query.equipo;
       this.bloquearCampoEquipo = true;
