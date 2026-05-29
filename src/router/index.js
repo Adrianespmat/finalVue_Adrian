@@ -5,6 +5,7 @@ import NuevoJugadorView from '../views/NuevoJugadorView.vue';
 import ClasificacionView from '../views/ClasificacionView.vue';
 import JugadoresView from '../views/JugadoresView.vue';
 import EquiposView from '../views/EquiposView.vue';
+import EliminarJugadorView from '../views/EliminarJugadorView.vue';
 
 const EnDesarrollo = { 
   template: '<div style="padding:20px;"><h2>Sección en desarrollo para la Entrega Final</h2></div>' 
@@ -21,7 +22,8 @@ const routes = [
   { path: '/eliminar-jugador', name: 'EliminarJugador', component: EnDesarrollo },
   { path: '/clasificacion', name: 'Clasificacion', component: ClasificacionView },
   { path: '/jugadores', name: 'Jugadores', component: JugadoresView },
-  { path: '/equipos', name: 'Equipos', component: EquiposView }
+  { path: '/equipos', name: 'Equipos', component: EquiposView },
+  { path: '/eliminar-jugador', name: 'EliminarJugador', component: EliminarJugadorView }
 ];
 
 const router = createRouter({
