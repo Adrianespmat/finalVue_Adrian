@@ -2,7 +2,7 @@
   <div class="clasificacion-page">
     <h1>Clasificación Actual</h1>
     
-    <!-- Tabla de clasificación-->
+    <!-- Tabla-->
     <table class="clasificacion-table">
       <thead>
         <tr>
