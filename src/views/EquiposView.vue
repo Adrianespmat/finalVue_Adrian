@@ -3,17 +3,19 @@
     <h1>Equipos de la Liga</h1>
     
     <div v-for="club in clubs" :key="club.id" class="equipo-card">
-      <h2>{{ club.name }}</h2>
+      <h2 @click="seleccionarEquipo(club)" :class="{ active: equipoSeleccionado?.name === club.name }">
+        {{ club.name }}
+      </h2>
       
-      <!-- Lista de jugadores del equipo -->
+      <!-- Lista de jugadores -->
       <ul class="lista-jugadores">
-        <li v-for="jugador in jugadoresPorEquipo(club)" :key="jugador.id">
+        <li v-for="jugador in jugadoresDelEquipo(club)" :key="jugador.id">
           {{ jugador.name || jugador.nombre }} — 
-          <strong>{{ jugador.scores || jugador.goles }} goles</strong>
+          <strong>{{ jugador.scores || jugador.goles || 0 }} goles</strong>
         </li>
       </ul>
 
-      <!-- Boton Nuevo Jugador-->
+      <!-- Botón Nuevo Jugador (deshabilitado hasta hacer click en el equipo) -->
       <button 
         @click="irANuevoJugador(club)"
         :disabled="equipoSeleccionado?.name !== club.name"
@@ -50,16 +52,22 @@ export default {
     }
   },
   methods: {
-    jugadoresPorEquipo(club) {
-      return this.players.filter(p => 
-        (p.team === club.name || p.equipo === club.name)
-      );
+    seleccionarEquipo(club) {
+      this.equipoSeleccionado = club;
+    },
+
+    jugadoresDelEquipo(club) {
+      if (!club?.name) return [];
+      
+      const nombreEquipo = club.name.trim();
+      
+      return this.players.filter(jugador => {
+        const equipoJugador = (jugador.team || jugador.equipo || '').trim();
+        return equipoJugador === nombreEquipo;
+      });
     },
 
     irANuevoJugador(club) {
-      this.equipoSeleccionado = club;
-      
-      // Navegar a Nuevo Jugador pasando el equipo como query param
       this.$router.push({
         path: '/nuevo-jugador',
         query: { equipo: club.name }
@@ -82,13 +90,17 @@ export default {
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 .equipo-card h2 {
-  margin-top: 0;
+  margin: 0 0 15px 0;
   color: #2c3e50;
+  cursor: pointer;
+}
+.equipo-card h2:hover, .equipo-card h2.active {
+  color: #3498db;
 }
 .lista-jugadores {
   list-style: none;
   padding: 0;
-  margin: 15px 0;
+  margin-bottom: 15px;
 }
 .lista-jugadores li {
   padding: 8px 0;

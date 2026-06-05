@@ -8,6 +8,9 @@ export default {
   getClubs() {
     return axios.get(`${API_URL}/clubs`);
   },
+  updateClub(id, data) {
+  return axios.patch(`${API_URL}/clubs/${id}`, data);
+},
 
   // Partidos
   getMatches() {

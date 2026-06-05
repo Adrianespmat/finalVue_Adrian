@@ -4,121 +4,121 @@
       "name": "SD Eibar",
       "id": "0",
       "country": "Spain",
-      "points": 0
+      "points": 63
     },
     {
       "name": "RC Celta Vigo",
       "id": "1",
       "country": "Spain",
-      "points": 0
+      "points": 49
     },
     {
       "name": "Granada CF",
       "id": "2",
       "country": "Spain",
-      "points": 0
+      "points": 98
     },
     {
       "name": "Athletic Club Bilbao",
       "id": "3",
       "country": "Spain",
-      "points": 0
+      "points": 63
     },
     {
       "name": "Cádiz CF",
       "id": "4",
       "country": "Spain",
-      "points": 0
+      "points": 98
     },
     {
       "name": "CA Osasuna",
       "id": "5",
       "country": "Spain",
-      "points": 0
+      "points": 70
     },
     {
       "name": "FC Barcelona",
       "id": "6",
       "country": "Spain",
-      "points": 0
+      "points": 77
     },
     {
       "name": "Elche CF",
       "id": "7",
       "country": "Spain",
-      "points": 0
+      "points": 98
     },
     {
       "name": "Real Madrid",
       "id": "8",
       "country": "Spain",
-      "points": 0
+      "points": 112
     },
     {
       "name": "Getafe CF",
       "id": "9",
       "country": "Spain",
-      "points": 0
+      "points": 77
     },
     {
       "name": "Deportivo Alavés",
       "id": "10",
       "country": "Spain",
-      "points": 0
+      "points": 63
     },
     {
       "name": "Real Betis",
       "id": "11",
       "country": "Spain",
-      "points": 0
+      "points": 84
     },
     {
       "name": "Real Valladolid CF",
       "id": "12",
       "country": "Spain",
-      "points": 0
+      "points": 42
     },
     {
       "name": "Real Sociedad",
       "id": "13",
       "country": "Spain",
-      "points": 0
+      "points": 140
     },
     {
       "name": "Villarreal CF",
       "id": "14",
       "country": "Spain",
-      "points": 0
+      "points": 126
     },
     {
       "name": "SD Huesca",
       "id": "15",
       "country": "Spain",
-      "points": 0
+      "points": 42
     },
     {
       "name": "Valencia CF",
       "id": "16",
       "country": "Spain",
-      "points": 0
+      "points": 77
     },
     {
       "name": "Levante UD",
       "id": "17",
       "country": "Spain",
-      "points": 0
+      "points": 66
     },
     {
       "name": "Atlético Madrid",
       "id": "18",
       "country": "Spain",
-      "points": 0
+      "points": 119
     },
     {
       "name": "Sevilla FC",
       "id": "19",
       "country": "Spain",
-      "points": 0
+      "points": 67
     }
   ],
   "matches": [
@@ -160,7 +160,11 @@
       "round": "Jornada 1",
       "date": "2020-09-13",
       "team1": "FC Barcelona",
-      "team2": "Elche CF"
+      "team2": "Elche CF",
+      "score": [
+        1,
+        3
+      ]
     },
     {
       "id": "5",
@@ -1138,7 +1142,11 @@
       "round": "Jornada 11",
       "date": "2020-11-27",
       "team1": "Real Valladolid CF",
-      "team2": "Levante UD"
+      "team2": "Levante UD",
+      "score": [
+        2,
+        3
+      ]
     },
     {
       "id": "99",
